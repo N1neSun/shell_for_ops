@@ -1,0 +1,21 @@
+#author:N1neSun
+services:
+        django:
+                build: ./django
+                volumes:
+                        - /opt/server:/opt/server
+                expose:
+                        - 8000
+        nginx:
+                build: ./nginx
+                links:
+                        - django
+                ports:
+                        - "80:80"
+                        - "443:443"
+        redis:
+                image: redis
+                links: 
+                        - django
+                expose:
+                        - 6379
